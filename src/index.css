@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Lexend", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  /* Modern Green & Blue Theme Colors */
+  --color-primary: #1B4D3E; /* Deep Forest Green */
+  --color-secondary: #006994; /* Ocean Blue */
+  --color-accent: #E0F2F1; /* Light Mint */
+  --color-bg-base: #F8FAFB; /* Off-White Blueish */
+}
