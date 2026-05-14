@@ -1,0 +1,118 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a user and their psychological trait profile.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "traitProfile": {
+          "type": "object",
+          "properties": {
+            "attachmentStyle": { "type": "string", "enum": ["Anxious", "Avoidant", "Secure", "Disorganized"] },
+            "communicationStyle": { "type": "string" },
+            "triggers": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "email"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "A conversation entry for analysis and coaching.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "partnerName": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "resolved"] },
+        "lastMessageAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "title"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "An individual message within a conversation, including AI analysis.",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["user", "partner"] },
+        "senderName": { "type": "string" },
+        "content": { "type": "string" },
+        "order": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "analysis": {
+          "type": "object",
+          "properties": {
+            "emotion": { "type": "string" },
+            "intent": { "type": "string" },
+            "advice": { "type": "string" },
+            "mistakeFilter": { "type": "string" }
+          }
+        }
+      },
+      "required": ["role", "content", "createdAt", "order"]
+    },
+    "Mission": {
+      "title": "Mission",
+      "description": "A daily or weekly communication mission for the user.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "points": { "type": "number" },
+        "completed": { "type": "boolean" },
+        "category": { "type": "string", "enum": ["empathy", "clarity", "conflict_resolution"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "UserStats": {
+      "title": "UserStats",
+      "description": "Aggregated communication statistics and gamification data.",
+      "type": "object",
+      "properties": {
+        "totalPoints": { "type": "number" },
+        "level": { "type": "number" },
+        "empathyScore": { "type": "number" },
+        "conflictResolutionScore": { "type": "number" },
+        "emotionTrends": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "date": { "type": "string" },
+              "positiveRatio": { "type": "number" },
+              "negativeRatio": { "type": "number" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Global user profiles."
+    },
+    "/users/{userId}/stats": {
+      "schema": "UserStats",
+      "description": "User's aggregated stats and progress."
+    },
+    "/users/{userId}/missions/{missionId}": {
+      "schema": "Mission",
+      "description": "Assigned missions for the user."
+    },
+    "/users/{userId}/conversations/{conversationId}": {
+      "schema": "Conversation",
+      "description": "User's specific conversation logs."
+    },
+    "/users/{userId}/conversations/{conversationId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Individual messages in a specific conversation."
+    }
+  }
+}

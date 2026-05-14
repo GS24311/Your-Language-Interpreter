@@ -1,0 +1,6 @@
+{
+  "name": "Your Language Interpreter",
+  "description": "An AI-powered communication assistant helping users navigate conflicts, interpret emotions, and build better relationships.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["AI Emotion Analysis", "Communication Trait Tracking", "Conversation Conflict Resolution"]
+}
